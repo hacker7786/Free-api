@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selfie Login</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>Selfie Login</h1>
+    </div>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div id="cameraSection" style="display:none;">
+      <video id="video" autoplay></video>
+      <button id="takePhoto">Take Selfie</button>
+    </div>
+    <p id="message"></p>
+    <a href="/admin" onclick="fetchAdminPanel()" target="_blank" style="display: block; margin-top: 20px;">Go to Admin Panel</a>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Function to fetch admin panel with authentication
+    function fetchAdminPanel() {
+      fetch('http://localhost:5000/admin', {
+        headers: {
+          'Authorization': 'Basic ' + btoa('Cr3cka:Cr3cka786')
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.text();
+        } else {
+          throw new Error('Network response was not ok');
+        }
+      })
+      .then(data => {
+        console.log('Admin page content:', data);
+      })
+      .catch(error => {
+        console.error('Error fetching admin page:', error);
+      });
+    }
+
+    // Call the function to fetch admin page
+    fetchAdminPanel();
+  </script>
+</body>
+</html>
